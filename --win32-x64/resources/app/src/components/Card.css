@@ -1,0 +1,33 @@
+.card {
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+.card-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .card {
+        background-color: #1e1e1e;
+        border-color: #333;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-header {
+        border-bottom-color: #333;
+    }
+}
