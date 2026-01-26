@@ -108,6 +108,16 @@ Ensure you have the following installed on your machine:
     npm install
     ```
 
+3.  **Configure Environment Variables**:
+    -   Create a `.env` file in the root directory.
+    -   Copy the contents of `.env.example` into `.env`.
+    -   Fill in your Firebase configuration details:
+        ```env
+        VITE_FIREBASE_API_KEY=your_api_key
+        VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+        ...
+        ```
+
 ### Development
 
 To run the application in development mode (hot-reload enabled):
