@@ -3,13 +3,13 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCoMwCR7qAxDN5pzhuYs8GcAY6UMu2h8-U",
-    authDomain: "focus-bro.firebaseapp.com",
-    projectId: "focus-bro",
-    storageBucket: "focus-bro.firebasestorage.app",
-    messagingSenderId: "615574208944",
-    appId: "1:615574208944:web:dfd6f4877365f007345675",
-    measurementId: "G-NZXZGVJNDJ"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
