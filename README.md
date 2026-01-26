@@ -1,6 +1,6 @@
 # Shuuchuu (Concentration) 🎯
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg) ![Electron](https://img.shields.io/badge/Electron-29.0.0-orange.svg) ![React](https://img.shields.io/badge/React-18.2.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.3.1-blue.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg) ![Electron](https://img.shields.io/badge/Electron-29.0.0-orange.svg) ![React](https://img.shields.io/badge/React-18.2.0-blue.svg)
 
 **Shuuchuu** is a powerful, all-in-one productivity desktop application designed to help you master your focus, organize your life, and achieve your goals. Built with modern web technologies and wrapped in Electron, it provides a seamless and responsive experience on your desktop.
 
