@@ -13,8 +13,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
     minimizeApp: () => ipcRenderer.send('minimize-app'),
     toggleAlwaysOnTop: (shouldBeOnTop) => ipcRenderer.invoke('toggle-always-on-top', shouldBeOnTop),
 
-    // Deep Link Auth
-    openExternal: (url) => ipcRenderer.invoke('open-external', url),
-    onDeepLinkAuth: (callback) => ipcRenderer.on('deep-link-auth', (event, token) => callback(token)),
-    removeDeepLinkAuthListener: () => ipcRenderer.removeAllListeners('deep-link-auth')
+    invoke: (channel, data) => ipcRenderer.invoke(channel, data)
 });

@@ -10,10 +10,9 @@ import { TasksProvider } from './context/TasksContext'
 import { HabitsProvider } from './context/HabitsContext'
 
 import Layout from './layouts/Layout'
-
 import AlarmManager from './components/AlarmManager';
 
-// Static imports for pre-loading - Reverted for smoother UX
+// Static imports
 import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
 import Timer from './pages/Timer';
@@ -29,23 +28,17 @@ import Notes from './pages/Notes';
 import Wellness from './pages/Wellness';
 import MiniTimer from './pages/MiniTimer';
 
-// Navigation Handler Component
-// Ensures robust navigation when restoring from Mini Mode
 import { useNavigate } from 'react-router-dom';
 
 const NavigationHandler = ({ isMiniMode, prevMiniModeRef }) => {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        // If we transitioned from Mini (true) to Normal (false)
         if (prevMiniModeRef.current === true && isMiniMode === false) {
-            console.log("Restoring from Mini Mode -> Navigating to /focus");
-            // Add slight delay to ensure Router is ready
             setTimeout(() => {
                 navigate('/focus');
             }, 100);
         }
-        // Update ref
         prevMiniModeRef.current = isMiniMode;
     }, [isMiniMode, navigate, prevMiniModeRef]);
 
@@ -53,9 +46,6 @@ const NavigationHandler = ({ isMiniMode, prevMiniModeRef }) => {
 };
 
 import { AuthProvider } from './context/AuthContext'
-import Login from './pages/Login'
-import ExternalAuth from './pages/ExternalAuth'
-import RequireAuth from './components/RequireAuth'
 
 function App() {
     const [isMiniMode, setIsMiniMode] = React.useState(false);
@@ -70,7 +60,6 @@ function App() {
             window.electronAPI.onMiniModeChange(handleMiniModeChange);
         }
 
-        // Check initial state
         if (window.electronAPI?.getMiniMode) {
             window.electronAPI.getMiniMode().then(isMini => {
                 setIsMiniMode(isMini);
@@ -90,20 +79,14 @@ function App() {
                                         <HabitsProvider>
                                             <AlarmManager />
                                             <Router>
-                                                {/* Helper to handle navigation logic inside Router context - MUST BE ALWAYS MOUNTED */}
                                                 <NavigationHandler isMiniMode={isMiniMode} prevMiniModeRef={prevMiniModeRef} />
 
                                                 {isMiniMode ? (
                                                     <MiniTimer />
                                                 ) : (
                                                     <Routes>
-                                                        <Route path="/login" element={<Login />} />
-                                                        <Route path="/external-auth" element={<ExternalAuth />} />
-                                                        <Route path="/" element={
-                                                            <RequireAuth>
-                                                                <Layout />
-                                                            </RequireAuth>
-                                                        }>
+                                                        {/* Removed Login and RequireAuth — App is local only now */}
+                                                        <Route path="/" element={<Layout />}>
                                                             <Route index element={<Dashboard />} />
                                                             <Route path="tasks" element={<Tasks />} />
                                                             <Route path="goals" element={<Goals />} />
