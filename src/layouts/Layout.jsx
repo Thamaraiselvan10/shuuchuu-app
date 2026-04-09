@@ -116,9 +116,9 @@ const Layout = () => {
     };
 
     const pendingTaskCount = tasks.filter(t => t.status === 'pending').length;
-
-
-
+    const habitsPendingCount = habits.filter(h => !h.completedToday).length;
+    const goalsActiveCount = goals.filter(g => g.status !== 'completed').length;
+    const todayEventsCount = tasks.filter(t => t.due_at && isSameDay(new Date(t.due_at), new Date())).length;
     // Shortcuts
     useKeyboardShortcuts({
         toggleSidebar: () => {
@@ -493,11 +493,23 @@ const Layout = () => {
                 </div>
                 <nav>
                     <NavLink to="/" title="Dashboard" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}><Home size={18} /> <span>Dashboard</span></NavLink>
-                    <NavLink to="/tasks" title="Tasks" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}><CheckSquare size={18} /> <span>Tasks</span></NavLink>
+                    <NavLink to="/tasks" title="Tasks" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+                        <CheckSquare size={18} /> <span>Tasks</span>
+                        {pendingTaskCount > 0 && <span className="nav-badge">{pendingTaskCount}</span>}
+                    </NavLink>
                     <NavLink to="/focus" title="Focus Time" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}><Clock size={18} /> <span>Focus Time</span></NavLink>
-                    <NavLink to="/goals" title="Goals" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}><Target size={18} /> <span>Goals</span></NavLink>
-                    <NavLink to="/habits" title="Habits" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}><Repeat size={18} /> <span>Habits</span></NavLink>
-                    <NavLink to="/calendar" title="Calendar" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}><Calendar size={18} /> <span>Calendar</span></NavLink>
+                    <NavLink to="/goals" title="Goals" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+                        <Target size={18} /> <span>Goals</span>
+                        {goalsActiveCount > 0 && <span className="nav-badge">{goalsActiveCount}</span>}
+                    </NavLink>
+                    <NavLink to="/habits" title="Habits" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+                        <Repeat size={18} /> <span>Habits</span>
+                        {habitsPendingCount > 0 && <span className="nav-badge">{habitsPendingCount}</span>}
+                    </NavLink>
+                    <NavLink to="/calendar" title="Calendar" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
+                        <Calendar size={18} /> <span>Calendar</span>
+                        {todayEventsCount > 0 && <span className="nav-badge">{todayEventsCount}</span>}
+                    </NavLink>
                     <NavLink to="/notes" title="Notes" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}><FileText size={18} /> <span>Notes</span></NavLink>
                     <NavLink to="/diary" title="Diary" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}><BookOpen size={18} /> <span>Diary</span></NavLink>
                     <NavLink to="/wellness" title="Wellness" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}><Heart size={18} /> <span>Wellness</span></NavLink>

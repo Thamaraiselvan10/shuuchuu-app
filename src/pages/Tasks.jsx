@@ -9,7 +9,7 @@ import DesktopIcon from '../components/DesktopIcon';
 import TaskWindow from '../components/TaskWindow';
 import IconPicker from '../components/IconPicker';
 import { format } from 'date-fns';
-import { Timer, OctagonAlert } from 'lucide-react';
+import { Timer, AlertCircle } from 'lucide-react';
 
 const Tasks = () => {
     const { tasks, addTask, deleteTask, toggleTaskStatus, updateTask, updateTaskStatus, updateTaskPriority } = useTasks();
@@ -412,7 +412,7 @@ const Tasks = () => {
 
     // Get task count for a category
     const getTaskCount = (categoryName) => {
-        return tasks.filter(t => t.category === categoryName).length;
+        return tasks.filter(t => t.category === categoryName && t.status !== 'completed').length;
     };
 
     // Open task modal with pre-selected category
@@ -1181,7 +1181,7 @@ const Tasks = () => {
                         display: 'flex',
                         justifyContent: 'center'
                     }}>
-                        <OctagonAlert size={64} strokeWidth={1.5} />
+                        <AlertCircle size={64} strokeWidth={1.5} />
                     </div>
                     <h3 style={{
                         margin: '0 0 16px',

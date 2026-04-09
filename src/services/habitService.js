@@ -44,29 +44,24 @@ export const habitService = {
     },
 
     toggleLog: async (habitId, date) => {
-        const dateStr = format(date, 'yyyy-MM-dd');
+        const logs = await dbQuery('SELECT * FROM habit_logs WHERE habit_id = ?', [habitId]);
+        const existing = logs.find(log => isSameDay(parseISO(log.completed_at), date));
 
-        // Check if already logged
-        const existing = await dbQuery(
-            'SELECT id FROM habit_logs WHERE habit_id = ? AND completed_at LIKE ?',
-            [habitId, `${dateStr}%`]
-        );
-
-        if (existing.length > 0) {
+        if (existing) {
             // Remove log
-            await dbQuery('DELETE FROM habit_logs WHERE id = ?', [existing[0].id]);
+            await dbQuery('DELETE FROM habit_logs WHERE id = ?', [existing.id]);
         } else {
             // Add log
             const id = uuidv4();
             await dbQuery(
                 'INSERT INTO habit_logs (id, habit_id, completed_at) VALUES (?, ?, ?)',
-                [id, habitId, new Date().toISOString()]
+                [id, habitId, date.toISOString()]
             );
         }
 
         // Recalculate streak to update max_streak if needed
-        const logs = await dbQuery('SELECT * FROM habit_logs WHERE habit_id = ?', [habitId]);
-        const currentStreak = calculateStreak(logs);
+        const newLogs = await dbQuery('SELECT * FROM habit_logs WHERE habit_id = ?', [habitId]);
+        const currentStreak = calculateStreak(newLogs);
 
         const habitResult = await dbQuery('SELECT max_streak FROM habits WHERE id = ?', [habitId]);
         const currentMax = habitResult[0]?.max_streak || 0;

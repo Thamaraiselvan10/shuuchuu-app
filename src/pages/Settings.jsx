@@ -103,6 +103,7 @@ const Settings = () => {
     const tabs = [
         { id: 'appearance', label: 'Appearance', icon: <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg> },
         { id: 'dashboard', label: 'Dashboard', icon: <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" /></svg> },
+        { id: 'tasks', label: 'Tasks', icon: <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> },
         { id: 'music', label: 'Focus Music', icon: <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" /></svg> },
         { id: 'notifications', label: 'Notifications', icon: <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg> },
         { id: 'shortcuts', label: 'Shortcuts', icon: <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg> },
@@ -321,6 +322,54 @@ const Settings = () => {
                                     <span className="toggle-slider"></span>
                                 </label>
                             </div>
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === 'tasks' && (
+                    <div className="content-section">
+                        <h2>Tasks Settings</h2>
+                        <p className="description">Configure settings related to task management.</p>
+                        
+                        <div className="settings-list" style={{ marginTop: '20px' }}>
+                            <div className="setting-item-row">
+                                <div className="setting-meta">
+                                    <div className="setting-title">Auto-Delete Done Tasks</div>
+                                    <div className="setting-desc">Automatically delete tasks in the Kanban Done column after a set time.</div>
+                                </div>
+                                <div className="setting-control">
+                                    <label className="toggle-switch">
+                                        <input
+                                            type="checkbox"
+                                            checked={settings.autoDeleteDoneTasks ?? true}
+                                            onChange={(e) => updateSettings({ autoDeleteDoneTasks: e.target.checked })}
+                                        />
+                                        <span className="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            {(settings.autoDeleteDoneTasks ?? true) && (
+                                <div className="setting-item-row">
+                                    <div className="setting-meta">
+                                        <div className="setting-title">Deletion Time</div>
+                                        <div className="setting-desc">How long until done tasks are deleted.</div>
+                                    </div>
+                                    <div className="setting-control">
+                                        <select
+                                            value={settings.autoDeleteDoneTasksHours || 1}
+                                            onChange={(e) => updateSettings({ autoDeleteDoneTasksHours: parseFloat(e.target.value) })}
+                                            className="minimal-select"
+                                        >
+                                            <option value={1}>1 hour</option>
+                                            <option value={2}>2 hours</option>
+                                            <option value={5}>5 hours</option>
+                                            <option value={12}>12 hours</option>
+                                            <option value={24}>24 hours</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}

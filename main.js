@@ -17,6 +17,7 @@ function createWindow() {
         width: 1200,
         height: 800,
         frame: true, // Standard Windows frame
+        autoHideMenuBar: true, // Hide default Electron menu
         transparent: false,
         backgroundColor: '#121212',
         webPreferences: {
@@ -40,6 +41,7 @@ function createWindow() {
 
     // Optimization: Don't show until ready to prevent flicker
     mainWindow.once('ready-to-show', () => {
+        mainWindow.maximize();
         mainWindow.show();
     });
 }

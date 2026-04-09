@@ -55,7 +55,10 @@ export const SettingsProvider = ({ children }) => {
             motivationalNotificationInterval: 60, // minutes
             notifyAboutHabits: true,
             notifyAboutFocusTasks: true,
-            notifyAboutGoals: true
+            notifyAboutGoals: true,
+            // Tasks auto-delete
+            autoDeleteDoneTasks: true,
+            autoDeleteDoneTasksHours: 1
         };
 
         const saved = localStorage.getItem('app-settings');

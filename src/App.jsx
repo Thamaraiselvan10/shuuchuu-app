@@ -6,6 +6,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import { SettingsProvider } from './context/SettingsContext'
 import { GoalsProvider } from './context/GoalsContext'
 import { ToastProvider } from './context/ToastContext'
+import { CelebrationProvider } from './context/CelebrationContext'
 import { TasksProvider } from './context/TasksContext'
 import { HabitsProvider } from './context/HabitsContext'
 
@@ -74,7 +75,8 @@ function App() {
                     <ProfileProvider>
                         <GoalsProvider>
                             <ToastProvider>
-                                <AuthProvider>
+                                <CelebrationProvider>
+                                    <AuthProvider>
                                     <TasksProvider>
                                         <HabitsProvider>
                                             <AlarmManager />
@@ -107,6 +109,7 @@ function App() {
                                         </HabitsProvider>
                                     </TasksProvider>
                                 </AuthProvider>
+                                </CelebrationProvider>
                             </ToastProvider>
                         </GoalsProvider>
                     </ProfileProvider>

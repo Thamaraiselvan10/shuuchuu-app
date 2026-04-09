@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGoals } from '../context/GoalsContext';
 import { useTasks } from '../context/TasksContext';
+import { useCelebration } from '../context/CelebrationContext';
 import Button from '../components/Button';
 import PhaseModal from '../components/PhaseModal';
 import GoalModal from '../components/GoalModal';
@@ -225,6 +226,7 @@ const GoalDetails = () => {
     const navigate = useNavigate();
     const { goals, updateGoal, deleteGoal, getGoalPhases, addPhase, updatePhase, deletePhase, reorderPhases, refreshGoals } = useGoals();
     const { addTask } = useTasks();
+    const { triggerCelebration } = useCelebration();
 
     const [goal, setGoal] = useState(null);
     const [phases, setPhases] = useState([]);
@@ -357,6 +359,8 @@ const GoalDetails = () => {
             setCompletionComment('');
             loadPhases();
             refreshGoals();
+            
+            triggerCelebration('goals');
         }
     };
 

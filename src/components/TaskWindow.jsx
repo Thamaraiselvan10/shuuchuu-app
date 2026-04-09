@@ -2,7 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, useDroppable, useDraggable } from '@dnd-kit/core';
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { ArrowUp, ArrowDown, Calendar, Flag, Eye, EyeOff } from 'lucide-react';
+import { ArrowUp, ArrowDown, Calendar, Flag, Eye, EyeOff, Trash2 } from 'lucide-react';
+import { useSettings } from '../context/SettingsContext';
+
 
 const TaskWindow = ({
     id,
@@ -36,6 +38,7 @@ const TaskWindow = ({
     const [isResizing, setIsResizing] = useState(false);
     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
     const windowRef = useRef(null);
+    const { settings } = useSettings();
 
     // DnD Sensors for Kanban
     const sensors = useSensors(
@@ -191,7 +194,7 @@ const TaskWindow = ({
                 <div className="window-title">
                     <span className="window-icon">{icon}</span>
                     <span>{title}</span>
-                    <span className="window-task-count">{tasks.length}</span>
+                    <span className="window-task-count">{tasks.filter(t => t.status !== 'completed').length}</span>
                 </div>
                 <div className="window-view-modes" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <button
@@ -309,7 +312,19 @@ const TaskWindow = ({
                                     />
                                     <DroppableKanbanColumn
                                         id="completed"
-                                        title="Done"
+                                        title={
+                                            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                Done
+                                                {(settings?.autoDeleteDoneTasks ?? true) && (
+                                                    <span 
+                                                        title={`Auto-deletes in ${settings?.autoDeleteDoneTasksHours || 1} hour(s)`} 
+                                                        style={{ opacity: 0.6, display: 'flex', alignItems: 'center', cursor: 'help' }}
+                                                    >
+                                                        <Trash2 size={14} />
+                                                    </span>
+                                                )}
+                                            </span>
+                                        }
                                         tasks={tasksByStatus.completed}
                                         showCategory={showCategory}
                                         onContextMenu={onTaskContextMenu}

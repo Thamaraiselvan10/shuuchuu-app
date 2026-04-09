@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHabits } from '../context/HabitsContext';
 import { useToast } from '../context/ToastContext';
+import { useCelebration } from '../context/CelebrationContext';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
 import Input from '../components/Input';
@@ -14,6 +15,7 @@ const Habits = () => {
     const [showMilestone, setShowMilestone] = useState(null);
 
     const { showToast } = useToast();
+    const { triggerCelebration } = useCelebration();
 
     // Category icons mapping
     const categoryIcons = {
@@ -127,6 +129,13 @@ const Habits = () => {
                     setShowMilestone({ ...milestone, streak: newStreak, habitTitle: habit.title });
                     setTimeout(() => setShowMilestone(null), 3000);
                 }
+
+                // Check for Celebration Popup (Streak System Engine)
+                const uncompletedActiveHabits = habits.filter(h => !h.completedToday);
+                if (uncompletedActiveHabits.length === 1) {
+                    triggerCelebration('habits');
+                }
+
                 showToast(`Habit completed! Streak: ${newStreak}`, 'success');
             } else {
                 showToast(`Habit updated!`, 'success');
