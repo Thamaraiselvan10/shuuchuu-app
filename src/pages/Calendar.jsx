@@ -21,6 +21,7 @@ const Calendar = () => {
         'Event': '#8b5cf6',
         'Work': '#3b82f6',
         'Personal': '#2ecc71',
+        
         'Health': '#f59e0b',
         'Learning': '#ec4899',
         'Meeting': '#06b6d4',

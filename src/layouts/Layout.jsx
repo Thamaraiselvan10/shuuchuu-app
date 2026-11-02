@@ -17,7 +17,8 @@ import { useGoals } from '../context/GoalsContext';
 import { useHabits } from '../context/HabitsContext';
 
 import { useSettings } from '../context/SettingsContext';
-import useKeyboardShortcuts from '../hooks/useKeyboardShortcuts';
+import useKeyboardShortcuts from '../hooks/useKeyboardShortcuts'
+;
 import { startNotificationService, stopNotificationService, requestNotificationPermission } from '../services/NotificationService';
 
 
