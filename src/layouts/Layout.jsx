@@ -51,6 +51,7 @@ const Layout = () => {
 
     // Startup Flow State: 0=check, 1=profile popup, 2=daily briefing, 3=focus rules, 4=done
     const [startupStep, setStartupStep] = useState(() => {
+        if (import.meta.env.DEV) return 4; // Skip startup popups in dev mode (npm run electron:dev)
         const hasShown = sessionStorage.getItem('startupFlowShown');
         return hasShown ? 4 : 1; // If shown before, skip to done
     });
